@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .product {
+    @apply relative flex flex-col m-5 bg-white z-10 p-5 md:p-7 lg:p-8 border-mainWhiteGray border-t-2 shadow-lg rounded-3xl transition-all;
+  }
+  .product:hover {
+    @apply bg-gradient-to-bl from-white via-white to-mainLighterGray;
+  }
+
+  .button {
+    @apply text-xs p-2 md:text-sm bg-gradient-to-b from-mainLighterBrown to-mainBrown rounded-xl font-semibold transition-colors;
+  }
+  .button:hover {
+    @apply text-xs p-2 md:text-sm bg-gradient-to-b from-mainBrown to-mainLighterBrown;
+  }
+
+  .footerLink {
+    @apply cursor-pointer hover:text-mainGray;
+  }
+
+  .specials {
+    @apply border-2 border-mainBrown transition-colors rounded-full z-30 p-5 sm:p-10 shadow-md text-mainBrown text-lg font-semibold tracking-[0.6em] backdrop-blur-sm backdrop-grayscale backdrop-brightness-110;
+  }
+  .specials:hover {
+    @apply cursor-pointer bg-white bg-opacity-75 text-mainGray;
+  }
+}
