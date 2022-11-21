@@ -11,7 +11,7 @@ import {
 export default function CheckoutLogo() {
   return (
     <h1 className="my-5 font-bold text-2xl text-mainGray">
-      Cart{" "}
+      My Cart{" "}
       <FontAwesomeIcon
         className="text-mainBrown"
         icon={faCartShopping}
