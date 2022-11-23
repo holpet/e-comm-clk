@@ -14,11 +14,13 @@ export default function Home({ data }) {
         <title>CLKSHOP</title>
       </Head>
       <main>
-        <HeaderMenu />
-        <HeaderAdvert />
-        <Banner />
-        <Separator size={2} />
-        <ProductFeed products={data} />
+        <div className="content">
+          <HeaderMenu products={data} />
+          <HeaderAdvert />
+          <Banner />
+          <Separator size={2} />
+          <ProductFeed products={data} />
+        </div>
         <Footer />
       </main>
     </>

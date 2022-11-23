@@ -1,5 +1,6 @@
 import SeparatorInv from "../ui/SeparatorInv";
 import { useSelector } from "react-redux";
+import Router from "next/router";
 import {
   selectItems,
   selectTotalPrice,
@@ -8,6 +9,7 @@ import { FinProductI } from "../../../../src/lib/interfaces";
 
 import Quantity from "./Quantity";
 import CheckoutLogo from "./CheckoutLogo";
+import TotalPrice from "./TotalPrice";
 
 export default function Checkout() {
   const cart = useSelector(selectItems);
@@ -19,9 +21,20 @@ export default function Checkout() {
         {/* CART ICON */}
         <CheckoutLogo />
 
-        {/* SELECTED ITEMS */}
-        {cart.length === 0 && <p>Cart is empty.</p>}
+        {/* EMPTY CART */}
+        {cart.length === 0 && (
+          <div className="text-mainDarkGray">
+            <p className="my-5 text-xl font-bold">Cart is empty.</p>
+            <p
+              className="button inline-flex p-3"
+              onClick={() => Router.push("/")}
+            >
+              Continue shopping?
+            </p>
+          </div>
+        )}
 
+        {/* SELECTED ITEMS */}
         {cart.length > 0 &&
           cart.map((item: FinProductI) => (
             <div
@@ -35,20 +48,15 @@ export default function Checkout() {
             </div>
           ))}
 
-        <SeparatorInv size={1} />
-
-        {/* TOTAL PRICE */}
-        <div className="flex justify-between items-center mt-5 text-mainBlackGray text-xs md:text-base sm:text-sm">
-          <p className="md:mr-32 mr-16 text-xs">(price without VAT)</p>
-          <p className="font-bold">{((totalPrice / 100) * 80).toFixed(2)} €</p>
-        </div>
-        <div className="flex justify-between items-center my-5 text-mainBlackGray text-xs md:text-base sm:text-sm">
-          <p className="md:mr-32 mr-16 font-semibold">TOTAL PRICE:</p>
-          <p className="sm:text-2xl text-lg font-bold">{totalPrice} €</p>
-        </div>
-
-        {/* CONTINUE */}
-        <button className="button">CONTINUE</button>
+        {cart.length > 0 && (
+          <>
+            <SeparatorInv size={1} />
+            {/* TOTAL PRICE */}
+            <TotalPrice totalPrice={totalPrice} />
+            {/* CONTINUE */}
+            <button className="button">CONTINUE</button>
+          </>
+        )}
       </div>
     </div>
   );

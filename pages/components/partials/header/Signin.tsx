@@ -8,10 +8,7 @@ export default function Signin() {
   }
 
   return (
-    <p
-      onClick={handleAuth}
-      className="mx-4 cursor-pointer font-semibold text-mainBlackGray hover:text-mainGray"
-    >
+    <p onClick={handleAuth} className="headerLink mx-4 font-semibold">
       {status === "authenticated" ? "sign out" : "sign in"}
     </p>
   );

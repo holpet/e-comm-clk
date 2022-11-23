@@ -2,7 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Layout (growing content + sticky Footer) */
+html,
+body,
+main {
+  height: 100vh;
+}
+main {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+}
+
 @layer components {
+  /* Containers */
   .product {
     @apply relative flex flex-col m-5 bg-white z-10 p-5 md:p-7 lg:p-8 border-mainWhiteGray border-t-2 shadow-lg rounded-3xl transition-all;
   }
@@ -10,21 +25,34 @@
     @apply bg-gradient-to-bl from-white via-white to-mainLighterGray;
   }
 
+  /* Buttons */
   .button {
     @apply text-xs p-2 md:text-sm bg-gradient-to-b from-mainLighterBrown to-mainBrown rounded-xl font-semibold transition-colors;
   }
   .button:hover {
-    @apply text-xs p-2 md:text-sm bg-gradient-to-b from-mainBrown to-mainLighterBrown;
+    @apply cursor-pointer bg-gradient-to-b from-mainBrown to-mainLighterBrown;
   }
-
-  .footerLink {
-    @apply cursor-pointer hover:text-mainGray;
-  }
-
   .specials {
     @apply border-2 border-mainBrown transition-colors rounded-full z-30 p-5 sm:p-10 shadow-md text-mainBrown text-lg font-semibold tracking-[0.6em] backdrop-blur-sm backdrop-grayscale backdrop-brightness-110;
   }
   .specials:hover {
     @apply cursor-pointer bg-white bg-opacity-75 text-mainGray;
+  }
+  .dropDownButton {
+    @apply cursor-pointer bg-gradient-to-l first:rounded-t-xl last:rounded-b-xl px-3 py-4 border-none block;
+  }
+  .dropDownButton:hover {
+    @apply bg-gradient-to-r from-mainBrown to-mainWhiteGray;
+  }
+
+  /* Links */
+  .mainLink {
+    @apply cursor-pointer text-black hover:text-mainGray;
+  }
+  .secondaryLink {
+    @apply cursor-pointer text-mainBrown hover:text-mainLighterBrown;
+  }
+  .headerLink {
+    @apply cursor-pointer text-mainBlackGray hover:text-mainGray;
   }
 }

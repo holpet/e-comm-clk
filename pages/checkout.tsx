@@ -12,11 +12,11 @@ export default function checkout() {
         <title>CLKSHOP - Checkout</title>
       </Head>
       <main>
-        <HeaderMenu />
-        <Separator size={3} />
-
-        <Checkout />
-
+        <div className="content">
+          <HeaderMenu />
+          <Separator size={3} />
+          <Checkout />
+        </div>
         <Footer />
       </main>
     </>

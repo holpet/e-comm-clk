@@ -25,6 +25,7 @@ module.exports = {
       yellow: "	#FFF200",
       blue: "#00a8e1",
       white: "#ffffff",
+      black: "#000000",
       transparent: "transparent",
     },
     maxWidth: {

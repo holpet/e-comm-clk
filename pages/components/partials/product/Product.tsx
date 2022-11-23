@@ -31,9 +31,7 @@ export default function Product(props: ProductI) {
       <StarRating rating={props.rating} id={props.id} />
 
       {/* TITLE */}
-      <h4 className="font-semibold text-lg hover:cursor-pointer hover:text-mainGray">
-        {props.title}
-      </h4>
+      <h4 className="mainLink font-semibold text-lg">{props.title}</h4>
 
       {/* PRIME STATUS */}
       {hasPrime && <PrimeDeli />}
