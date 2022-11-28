@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { selectTotalItems } from "../../../../src/features/cart/cartSlice";
 import { useSelector } from "react-redux";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 // Icons
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -10,24 +10,25 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function Cart() {
+  const router = useRouter();
   const selNum = useSelector(selectTotalItems);
   const [cartItems, setCartItems] = useState(selNum);
 
   useEffect(() => {
     setCartItems(selNum);
   }, [selNum]);
-
-  function handleOnClick() {
-    Router.push("/checkout");
-  }
-
   return (
-    <div className="relative cursor-pointer" onClick={handleOnClick}>
+    // CART ICON
+    <div
+      className="relative cursor-pointer"
+      onClick={() => router.push("/checkout")}
+    >
       <FontAwesomeIcon
         className="secondaryLink cartIcon"
         icon={faCartShopping}
         size="lg"
       />
+      {/* CIRCLE WITH A NUMBER INDICATING ITEMS IN A CART */}
       {cartItems > 0 && (
         <div className="cartCircle">
           <FontAwesomeIcon

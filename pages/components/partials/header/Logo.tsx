@@ -4,14 +4,10 @@ import { useRouter } from "next/router";
 export default function Logo() {
   const router = useRouter();
 
-  function handleOnClick() {
-    router.push("/");
-  }
-
   return (
     <div
       className="flex items-center mx-3 cursor-pointer"
-      onClick={handleOnClick}
+      onClick={() => router.push("/")}
     >
       <Image
         className="mr-2"

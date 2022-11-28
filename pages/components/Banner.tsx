@@ -1,12 +1,21 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import ProgressiveImage from "react-progressive-graceful-image";
+import { useRouter } from "next/router";
 
 export default function Banner() {
+  const router = useRouter();
   return (
     <div className="flex justify-center items-center">
-      <div className="absolute specials">
+      {/* SPECIALS LINK */}
+      <div
+        className="absolute specials"
+        onClick={() => router.push("/specials")}
+      >
         <span>SPECIALS</span>
       </div>
+
+      {/* CAROUSEL BANNER */}
       <Carousel
         autoPlay={true}
         interval={5000}
@@ -20,14 +29,20 @@ export default function Banner() {
           .fill(0)
           .map((_, i) => (
             <div key={i}>
-              <img
+              <ProgressiveImage
                 src={`promo/${i}.webp`}
-                loading="lazy"
-                alt={`carousel promo - image No. ${i}`}
-                className={`sm:h-80 h-56 object-cover object-center ${
-                  i === 1 ? "contrast-75" : ""
-                }`}
-              />
+                placeholder={`promo/${i}_tiny.webp`}
+              >
+                {(src, loading) => (
+                  <img
+                    src={src}
+                    alt={`carousel promo - image No. ${i}`}
+                    className={`sm:h-80 h-56 object-cover object-center ${
+                      i === 1 ? "contrast-75" : ""
+                    }`}
+                  />
+                )}
+              </ProgressiveImage>
             </div>
           ))}
       </Carousel>

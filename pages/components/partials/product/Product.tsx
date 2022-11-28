@@ -9,20 +9,24 @@ import PrimeDeli from "./prime/PrimeDeli";
 import ImgPreview from "./ImgPreview";
 import Price from "./Price";
 import AddToCart from "./AddToCart";
+import CategoryLink from "./CategoryLink";
+import Loading from "../ui/Loading";
 
 // ts
-import { ProductI } from "../../../../src/lib/interfaces";
+import { IProductLoad } from "../../../../src/lib/interfaces";
 
-export default function Product(props: ProductI) {
+export default function Product(props: IProductLoad) {
   const [hasPrime, setHasPrime] = useState(false);
   useEffect(() => {
     setHasPrime(isPrime());
   }, []);
 
   return (
-    <div className="product hover:scale-105">
+    <div className="product">
+      {props.loading && <Loading fullScreen={false} />}
+
       {/* CATEGORY */}
-      <p className="self-end text-xs italic text-gray-400">{props.category}</p>
+      <CategoryLink category={props.category} />
 
       {/* IMAGE */}
       <ImgPreview image={props.image} />

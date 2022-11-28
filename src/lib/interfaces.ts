@@ -1,4 +1,4 @@
-interface ProductI {
+interface IProduct {
   id: number;
   title: string;
   price: number;
@@ -11,10 +11,14 @@ interface ProductI {
   };
 }
 
-interface FinProductI extends ProductI {
+interface IFinProduct extends IProduct {
   hasPrime: boolean;
   quantity: number;
   totalPrice: number;
 }
 
-export type { ProductI, FinProductI };
+interface IProductLoad extends IProduct {
+  loading: boolean;
+}
+
+export type { IProduct, IFinProduct, IProductLoad };

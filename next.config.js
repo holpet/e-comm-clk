@@ -7,6 +7,7 @@ const nextConfig = {
   images: {
     domains: ["fakestoreapi.com"],
     formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 120,
   },
 };
 

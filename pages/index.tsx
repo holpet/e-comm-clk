@@ -1,34 +1,22 @@
-import client from "../src/axios";
+import { fetchAllProducts } from "../src/fetchers/products";
 import Banner from "./components/Banner";
-import HeaderMenu from "./components/HeaderMenu";
 import HeaderAdvert from "./components/HeaderAdvert";
 import Separator from "./components/partials/ui/Separator";
 import ProductFeed from "./components/ProductFeed";
-import Footer from "./components/Footer";
-import Head from "next/head";
 
-export default function Home({ data }) {
+export default function HomePage({ data }) {
   return (
     <>
-      <Head>
-        <title>CLKSHOP</title>
-      </Head>
-      <main>
-        <div className="content">
-          <HeaderMenu products={data} />
-          <HeaderAdvert />
-          <Banner />
-          <Separator size={2} />
-          <ProductFeed products={data} />
-        </div>
-        <Footer />
-      </main>
+      <HeaderAdvert />
+      <Banner />
+      <Separator size={2} />
+      <ProductFeed products={data} loading={false} />
     </>
   );
 }
 
 export async function getServerSideProps() {
-  let { data } = await client.get("products", { withCredentials: true });
+  let data = await fetchAllProducts();
   return {
     props: { data },
   };

@@ -1,21 +1,21 @@
-import { ProductI } from "./interfaces";
+import { IProduct } from "./interfaces";
 
-function handleRatingStarsData({ rate }) {
+export function handleRatingStarsData({ rate }) {
   const base = Math.floor(rate);
   const rest = rate - base;
   return { base, rest };
 }
 
-function isIndented(num: number) {
+export function isIndented(num: number) {
   return num >= 0.8 || num < 0.2;
 }
 
-function isPrime() {
+export function isPrime() {
   return Math.random() < 0.5;
 }
 
-function createFinalProduct(
-  product: ProductI,
+export function createFinalProduct(
+  product: IProduct,
   hasPrime: Boolean,
   quantity: number,
   totalPrice: number
@@ -33,5 +33,3 @@ function createFinalProduct(
     totalPrice: totalPrice,
   };
 }
-
-export { handleRatingStarsData, isIndented, isPrime, createFinalProduct };

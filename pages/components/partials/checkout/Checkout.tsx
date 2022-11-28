@@ -1,17 +1,18 @@
 import SeparatorInv from "../ui/SeparatorInv";
 import { useSelector } from "react-redux";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import {
   selectItems,
   selectTotalPrice,
 } from "../../../../src/features/cart/cartSlice";
-import { FinProductI } from "../../../../src/lib/interfaces";
+import { IFinProduct } from "../../../../src/lib/interfaces";
 
 import Quantity from "./Quantity";
 import CheckoutLogo from "./CheckoutLogo";
 import TotalPrice from "./TotalPrice";
 
 export default function Checkout() {
+  const router = useRouter();
   const cart = useSelector(selectItems);
   const totalPrice = useSelector(selectTotalPrice).toFixed(2);
 
@@ -27,7 +28,7 @@ export default function Checkout() {
             <p className="my-5 text-xl font-bold">Cart is empty.</p>
             <p
               className="button inline-flex p-3"
-              onClick={() => Router.push("/")}
+              onClick={() => router.push("/")}
             >
               Continue shopping?
             </p>
@@ -36,7 +37,7 @@ export default function Checkout() {
 
         {/* SELECTED ITEMS */}
         {cart.length > 0 &&
-          cart.map((item: FinProductI) => (
+          cart.map((item: IFinProduct) => (
             <div
               key={item.id}
               className="flex justify-between my-5 text-mainBlackGray text-xs md:text-base sm:text-sm"

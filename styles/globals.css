@@ -24,6 +24,9 @@ main {
   .product:hover {
     @apply bg-gradient-to-bl from-white via-white to-mainLighterGray;
   }
+  .product:hover > .productImage {
+    @apply scale-110 transition-all;
+  }
 
   /* Buttons */
   .button {

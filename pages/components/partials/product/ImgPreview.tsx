@@ -1,6 +1,6 @@
 export default function ImgPreview({ image }) {
   return (
-    <div className="self-center w-[200px] h-[200px] m-4">
+    <div className="productImage self-center w-[200px] h-[200px] m-4">
       <img
         src={image}
         alt="product image"
