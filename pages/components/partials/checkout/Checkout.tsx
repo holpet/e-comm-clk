@@ -10,6 +10,7 @@ import { IFinProduct } from "../../../../src/lib/interfaces";
 import Quantity from "./Quantity";
 import CheckoutLogo from "./CheckoutLogo";
 import TotalPrice from "./TotalPrice";
+import { getPathFromId } from "../../../../src/lib/urlUtils";
 
 export default function Checkout() {
   const router = useRouter();
@@ -42,7 +43,12 @@ export default function Checkout() {
               key={item.id}
               className="flex justify-between my-5 text-mainBlackGray text-xs md:text-base sm:text-sm"
             >
-              <p className="hover:cursor-pointer hover:text-mainGray hover:underline">
+              <p
+                className="hover:cursor-pointer hover:text-mainGray hover:underline"
+                onClick={() =>
+                  router.push(getPathFromId(item.category, item.title, item.id))
+                }
+              >
                 {item.title}
               </p>
               <Quantity item={item} />

@@ -8,7 +8,7 @@ import styles from "../../../../styles/Header.module.css";
 export default function Categories() {
   return (
     <div className={styles.dropdown}>
-      <span className="secondaryLink bg-mainBlackGray font-bold py-7 px-4">
+      <span className="secondaryLink bg-mainBlackGray rounded-full border-2 border-mainBrown font-bold p-4">
         categories
       </span>
       <div
@@ -20,7 +20,7 @@ export default function Categories() {
             href={getPathFromCategory(category)}
             className="dropDownButton"
           >
-            <span className="px-4">{category}</span>
+            <span className="px-4 whitespace-nowrap">{category}</span>
           </Link>
         ))}
       </div>

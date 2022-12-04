@@ -8,7 +8,7 @@ export default function HomePage({ data }) {
   return (
     <>
       <HeaderAdvert />
-      <Banner />
+      <Banner category={false} />
       <Separator size={2} />
       <ProductFeed products={data} loading={false} />
     </>

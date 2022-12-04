@@ -6,8 +6,7 @@ import { useRouter } from "next/router";
 // Icons
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default function Cart() {
   const router = useRouter();

@@ -13,9 +13,16 @@ import CategoryLink from "./CategoryLink";
 import Loading from "../ui/Loading";
 
 // ts
-import { IProductLoad } from "../../../../src/lib/interfaces";
+import { IProduct } from "../../../../src/lib/interfaces";
+import TitleLink from "./TitleLink";
+import Description from "./Description";
 
-export default function Product(props: IProductLoad) {
+interface Props extends IProduct {
+  loading: boolean;
+  full: boolean;
+}
+
+export default function Product(props: Props) {
   const [hasPrime, setHasPrime] = useState(false);
   useEffect(() => {
     setHasPrime(isPrime());
@@ -35,13 +42,13 @@ export default function Product(props: IProductLoad) {
       <StarRating rating={props.rating} id={props.id} />
 
       {/* TITLE */}
-      <h4 className="mainLink font-semibold text-lg">{props.title}</h4>
+      <TitleLink title={props.title} id={props.id} category={props.category} />
 
       {/* PRIME STATUS */}
       {hasPrime && <PrimeDeli />}
 
       {/* DESCRIPTION */}
-      <p className="line-clamp-3 text-xs my-2">{props.description}</p>
+      <Description description={props.description} full={props.full} />
 
       {/* PRICE */}
       <Price price={props.price} hasPrime={hasPrime} />

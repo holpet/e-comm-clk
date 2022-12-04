@@ -35,11 +35,18 @@ main {
   .button:hover {
     @apply cursor-pointer bg-gradient-to-b from-mainBrown to-mainLighterBrown;
   }
-  .specials {
-    @apply border-2 border-mainBrown transition-colors rounded-full z-30 p-5 sm:p-10 shadow-md text-mainBrown text-lg font-semibold tracking-[0.6em] backdrop-blur-sm backdrop-grayscale backdrop-brightness-110;
+  .specials,
+  .categorySpecials {
+    @apply border-2 border-mainBrown transition-colors text-center rounded-full z-30 p-5 sm:p-10 shadow-md text-mainBrown bg-black bg-opacity-50 text-lg font-semibold tracking-[0.6em] backdrop-blur-sm backdrop-grayscale backdrop-brightness-110;
   }
   .specials:hover {
     @apply cursor-pointer bg-white bg-opacity-75 text-mainGray;
+  }
+  .categoryButton {
+    @apply border-2 border-mainBrown transition-colors z-30 p-5 sm:p-10 shadow-md text-mainBlackGray font-semibold tracking-[0.4em] sm:tracking-[0.1em]  text-xs sm:text-sm md:text-base lg:text-lg;
+  }
+  .categoryButton:hover {
+    @apply cursor-pointer text-mainGray;
   }
   .dropDownButton {
     @apply cursor-pointer bg-gradient-to-l first:rounded-t-xl last:rounded-b-xl px-3 py-4 border-none block;

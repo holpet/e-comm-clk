@@ -8,6 +8,7 @@ import Layout from "./components/layout/Layout";
 import Loading from "./components/partials/ui/Loading";
 import type { AppProps } from "next/app";
 import { useState } from "react";
+import { Provider as AtomProvider } from "jotai";
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -19,9 +20,11 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             loading={<Loading fullScreen={true} />}
             persistor={getRdxUtils().persistor}
           >
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <AtomProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </AtomProvider>
           </PersistGate>
         </Provider>
       </SessionProvider>

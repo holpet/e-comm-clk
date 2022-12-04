@@ -17,8 +17,4 @@ interface IFinProduct extends IProduct {
   totalPrice: number;
 }
 
-interface IProductLoad extends IProduct {
-  loading: boolean;
-}
-
-export type { IProduct, IFinProduct, IProductLoad };
+export type { IProduct, IFinProduct };

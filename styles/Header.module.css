@@ -2,11 +2,11 @@
   background-color: rgba(255, 255, 255, 0) !important;
 }
 
+/* DROPDOWN FOR CATEGORIES */
 .dropdown {
   position: relative;
   display: inline-block;
 }
-
 .dropdownContent {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -24,8 +24,34 @@
   transition: opacity 150ms ease-in-out;
   pointer-events: none;
 }
-
 .dropdown:hover > .dropdownContent {
   opacity: 1;
+  pointer-events: auto;
+}
+
+/* DROPDOWN FOR SEARCH LINKS */
+
+.dropdownSearch {
+  position: relative;
+  display: inline-block;
+}
+.dropdownContentSearch {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 180px;
+  z-index: 15;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  -webkit-transition: opacity 80ms ease-out;
+  -moz-transition: opacity 80ms ease-out;
+  -o-transition: opacity 80ms ease-out;
+  transition: opacity 80ms ease-in-out;
+  pointer-events: none;
+}
+.dropdownSearch:focus-within > .dropdownContentSearch {
+  /* opacity: 1; */
   pointer-events: auto;
 }

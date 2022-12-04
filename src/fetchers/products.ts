@@ -7,7 +7,21 @@ import {
   capToLimit,
   generateRandomNumberArray,
 } from "./lib/fetchUtils";
-import productClient from "./axiosConfig";
+import productClient, { searchClient } from "./axiosConfig";
+
+/* FETCH ONE PRODUCT */
+export async function fetchOneProductById(id: string) {
+  const controller = new AbortController();
+  try {
+    let { data } = await productClient.get(`${id}`, {
+      signal: controller.signal,
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+  controller.abort();
+}
 
 /* FETCH ALL PRODUCTS */
 export async function fetchAllProducts() {
@@ -29,6 +43,21 @@ export async function fetchProductsByCategory(category: string) {
     let { data } = await productClient.get(`category/${categoryQuery}`, {
       signal: controller.signal,
     });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+  controller.abort();
+}
+
+/* FETCH SEARCHED/QUERIED PRODUCTS */
+export async function fetchQueriedProducts(query: string) {
+  const controller = new AbortController();
+  try {
+    let { data } = await searchClient.get(`search?q=${query}`, {
+      signal: controller.signal,
+    });
+
     return data;
   } catch (error) {
     console.log(error);
