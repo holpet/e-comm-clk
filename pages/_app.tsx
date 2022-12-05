@@ -6,8 +6,12 @@ import "../styles/globals.css";
 import Layout from "./components/layout/Layout";
 import Loading from "./components/partials/ui/Loading";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const router = useRouter();
+  const noLayout = router.asPath.includes("signin");
+
   return (
     <SessionProvider session={session}>
       <Provider store={getRdxUtils().store}>
@@ -15,9 +19,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           loading={<Loading fullScreen={true} />}
           persistor={getRdxUtils().persistor}
         >
-          <Layout>
+          {noLayout ? (
             <Component {...pageProps} />
-          </Layout>
+          ) : (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          )}
         </PersistGate>
       </Provider>
     </SessionProvider>

@@ -22,7 +22,8 @@
     "pages/components/Header.jsx",
     "pages/index.jsx",
     "pages/components/ProductFeed.jsx",
-    "src/lib/test/productUtils.test.js"
+    "src/lib/test/productUtils.test.js",
+    "pages/SignIn.jsx"
   ],
   "exclude": ["node_modules"]
 }
