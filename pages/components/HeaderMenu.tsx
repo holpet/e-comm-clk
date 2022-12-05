@@ -4,6 +4,7 @@ import SearchBar from "./partials/header/SearchBar";
 import Logo from "./partials/header/Logo";
 import Cart from "./partials/header/Cart";
 import Categories from "./partials/header/Categories";
+import ThreeLinesMenu from "./partials/header/ThreeLinesMenu";
 
 export default function HeaderMenu() {
   return (
@@ -12,6 +13,7 @@ export default function HeaderMenu() {
         <Logo />
         <SearchBar />
         <div className="flex items-center mr-5">
+          <ThreeLinesMenu />
           <Categories />
           <Signin />
           <Cart />

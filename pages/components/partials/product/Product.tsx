@@ -10,7 +10,6 @@ import ImgPreview from "./ImgPreview";
 import Price from "./Price";
 import AddToCart from "./AddToCart";
 import CategoryLink from "./CategoryLink";
-import Loading from "../ui/Loading";
 
 // ts
 import { IProduct } from "../../../../src/lib/interfaces";
@@ -30,8 +29,6 @@ export default function Product(props: Props) {
 
   return (
     <div className="product">
-      {props.loading && <Loading fullScreen={false} />}
-
       {/* CATEGORY */}
       <CategoryLink category={props.category} />
 

@@ -21,7 +21,8 @@
     "**/*.tsx",
     "pages/components/Header.jsx",
     "pages/index.jsx",
-    "pages/components/ProductFeed.jsx"
+    "pages/components/ProductFeed.jsx",
+    "src/lib/test/productUtils.test.js"
   ],
   "exclude": ["node_modules"]
 }

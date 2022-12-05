@@ -36,7 +36,7 @@ export default function Banner({ category }: Props) {
   }, [router.isReady, router.query]);
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="relative flex justify-center items-center">
       {/* SPECIALS/CATEGORY LINK */}
       <div
         className={`absolute ${category ? "categorySpecials" : "specials"}`}

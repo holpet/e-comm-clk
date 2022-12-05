@@ -57,7 +57,7 @@ export function getCategoryFromPath(path: Array<string>) {
 }
 
 /**
- * Function that determines whether the requested category path (e.g. [women, somethingsomething] ) is valid or not.
+ * Function that determines whether the requested category path (e.g. ['women', 'somethingsomething'] ) is valid or not.
  * "somethingsomething" is not valid, because it's not included in PRIMARY_CATEGORY_TAG, see constants -> PRIMARY_CATEGORY_TAG.
  * @param path resulting array of tags from @next/router (router.query.category)
  * @returns boolean validation of the path
@@ -81,11 +81,12 @@ export function isValidPath(path: Array<string>) {
  * @param name a name/title of the product
  * @returns path/query name used in creating final path to product
  */
-function getQueryFromName(name: string) {
+export function getQueryFromName(name: string) {
   const path = name
     .replaceAll(" ", "-")
     .replaceAll("'", "")
     .replaceAll("/", "-")
+    .replaceAll(",", "-")
     .toLowerCase();
   return path;
 }

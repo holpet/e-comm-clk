@@ -30,9 +30,11 @@ module.exports = {
     },
     maxWidth: {
       preview: "200px",
+      full: "100%",
     },
     maxHeight: {
       preview: "200px",
+      full: "100%",
     },
     animation: {
       "--fa-animation-duration": "0.5s",

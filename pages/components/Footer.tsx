@@ -7,8 +7,10 @@ import {
   faPinterest,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import { useRouter } from "next/router";
 
 export default function Footer() {
+  const router = useRouter();
   const currentYear = new Date().getFullYear();
   return (
     <footer className="footer text-center bottom-0 w-full mt-10 bg-gradient-to-r from-mainBrown via-mainLighterGray to-mainWhiteGray p-1 sm:p-2 text-sm sm:font-medium">
@@ -58,7 +60,16 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="my-4">Copyright CLK @ {currentYear}</p>
+      <p className="my-4">
+        Powered by{" "}
+        <span
+          className="my-4 mainLink underline"
+          onClick={() => router.push("https://fakestoreapi.com/")}
+        >
+          FakeStore API
+        </span>{" "}
+        @ {currentYear}
+      </p>
     </footer>
   );
 }
