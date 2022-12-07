@@ -1,18 +1,29 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { fetchAllProducts } from "../../../src/fetchers/products";
-import { IProduct } from "../../../src/lib/interfaces";
+import tags from "../../../src/lib/itemTagsCollection";
+import { fetchOneProductById } from "../../../src/fetchers/products";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  //console.time("b");
   const query = req.query.q;
-  const products = await fetchAllProducts();
-
   if (typeof query !== "string") return;
-  const queriedArray = products.filter((product: IProduct) => {
+
+  // filter results from a doc on internal server
+  const arrayWithMatches = tags.filter((item) => {
     return (
-      product.title.toLowerCase().includes(query.toLowerCase()) ||
-      product.description.toLowerCase().includes(query.toLowerCase()) ||
-      product.category.toLowerCase().includes(query.toLowerCase())
+      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.description.toLowerCase().includes(query.toLowerCase()) ||
+      item.category.toLowerCase().includes(query.toLowerCase())
     );
   });
+
+  // fetch matching items (full product details) from external server using id
+  const queriedArray = await Promise.all(
+    arrayWithMatches.map((item) => {
+      return fetchOneProductById(item.id.toString());
+    })
+  );
+
+  //console.timeEnd("b");
+
   res.status(200).json(queriedArray);
 };

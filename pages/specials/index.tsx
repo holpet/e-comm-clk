@@ -3,27 +3,28 @@ import { fetchRandomProducts } from "../../src/fetchers/products";
 import ProductFeed from "../components/ProductFeed";
 import { useRouter } from "next/router";
 import CategoryLinker from "../components/partials/category/CategoryLinker";
-import Separator from "../components/partials/ui/Separator";
+import HeaderAdvert from "../components/HeaderAdvert";
+import Loading from "../components/partials/ui/Loading";
 
 const MAX_NUM_OF_SPECIALS = 8;
 
 export default function SpecialsPage() {
   const [randomProducts, setRandomProducts] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    setLoading(true);
     fetchRandomProducts(MAX_NUM_OF_SPECIALS).then((productArray) => {
       if (productArray) setRandomProducts(productArray);
       else router.push("/");
+      setLoading(false);
     });
-    setLoading(false);
   }, []);
 
   return (
     <>
-      {/* <Separator size={3} /> */}
+      {loading && <Loading fullScreen={false} search={false} />}
+      <HeaderAdvert />
       <CategoryLinker />
       <ProductFeed products={randomProducts} loading={loading} />
     </>

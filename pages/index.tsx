@@ -15,7 +15,11 @@ export default function HomePage({ data }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=20, stale-while-revalidate=59"
+  );
   let data = await fetchAllProducts();
   return {
     props: { data },

@@ -28,7 +28,7 @@ export default function Product(props: Props) {
   }, []);
 
   return (
-    <div className="product">
+    <div className={`product`}>
       {/* CATEGORY */}
       <CategoryLink category={props.category} />
 

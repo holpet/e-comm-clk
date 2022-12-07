@@ -2,23 +2,25 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../../../styles/Header.module.css";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { fetchQueriedProducts } from "../../../../src/fetchers/products";
 import { getPathFromId } from "../../../../src/lib/urlUtils";
 import Link from "next/link";
+import Loading from "../ui/Loading";
 
 export default function SearchBar() {
-  const router = useRouter();
   const [localQuery, setLocalQuery] = useState("");
   const [results, setResults] = useState(null);
+  const [isFocused, setIsFocused] = useState(false);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const q = e.target.value;
+    setResults(undefined);
     setLocalQuery(q);
     if (q.length > 2) {
       fetchQueriedProducts(q).then((foundProducts) => {
-        if (foundProducts.length === 0) setResults(null);
+        if (foundProducts === undefined) setResults(null);
+        else if (foundProducts.length === 0) setResults(null);
         else setResults(foundProducts);
       });
     }
@@ -46,6 +48,8 @@ export default function SearchBar() {
             placeholder="What are you looking for?"
             value={localQuery}
             onChange={handleOnChange}
+            onBlur={() => setIsFocused(false)}
+            onFocus={() => setIsFocused(true)}
           />
         </div>
       </div>
@@ -53,12 +57,14 @@ export default function SearchBar() {
         className={`${
           styles.dropdownContentSearch
         } bg-mainWhiteGray p-4 mt-1 mr-5 w-full ${
-          localQuery.length > 2 ? "opacity-1" : "opacity-0"
+          localQuery.length > 2 && isFocused ? "!opacity-100" : "!opacity-0"
         }`}
       >
         {/* >>>>> DROPDOWN MATCHES <<<<< */}
+        {results === undefined && <Loading fullScreen={false} search={true} />}
         {results === null && <div>No matches found.</div>}
         {results !== null &&
+          results !== undefined &&
           results.map((product) => (
             <Link
               key={product.id}

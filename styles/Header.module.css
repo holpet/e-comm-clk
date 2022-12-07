@@ -26,12 +26,8 @@
   transition: opacity 150ms ease-in-out;
   pointer-events: none;
 }
-.dropdown:hover > .dropdownContent {
+.dropdown:hover > .dropdownContent,
+.dropdownSearch:focus-within .dropdownContentSearch {
   opacity: 1;
-  pointer-events: auto;
-}
-
-.dropdownSearch:focus-within > .dropdownContentSearch {
-  /* opacity: 1; */
   pointer-events: auto;
 }

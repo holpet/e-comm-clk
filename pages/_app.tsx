@@ -16,7 +16,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <SessionProvider session={session}>
       <Provider store={getRdxUtils().store}>
         <PersistGate
-          loading={<Loading fullScreen={true} />}
+          loading={<Loading fullScreen={true} search={false} />}
           persistor={getRdxUtils().persistor}
         >
           {noLayout ? (

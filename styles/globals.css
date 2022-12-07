@@ -68,4 +68,7 @@ main {
   .headerLink {
     @apply cursor-pointer text-mainBlackGray hover:text-mainGray;
   }
+  .catLinker:hover > .catIcon {
+    @apply scale-110;
+  }
 }

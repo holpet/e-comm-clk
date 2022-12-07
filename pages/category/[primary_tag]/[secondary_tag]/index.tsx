@@ -6,11 +6,12 @@ import { useRouter } from "next/router";
 import Banner from "../../../components/Banner";
 import SeparatorInv from "../../../components/partials/ui/SeparatorInv";
 import Separator from "../../../components/partials/ui/Separator";
+import Loading from "../../../components/partials/ui/Loading";
 
 export default function CategoryPage() {
   const router = useRouter();
   const [category, setCategory] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // validate router query
@@ -27,16 +28,16 @@ export default function CategoryPage() {
     // fetch products
     const tags = getCategoryFromPath(queriedArray);
 
-    setLoading(true);
     fetchProductsByCategory(tags).then((data) => {
       if (data) setCategory(data);
       else router.push("/category");
+      setLoading(false);
     });
-    setLoading(false);
   }, [router.isReady, router.query]);
 
   return (
     <>
+      {loading && <Loading fullScreen={false} search={false} />}
       <SeparatorInv size={2} />
       <Banner category={true} />
       <Separator size={2} />
