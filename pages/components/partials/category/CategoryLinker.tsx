@@ -29,6 +29,7 @@ const getIcon = (category: string) => {
 
 export default function CategoryLinker() {
   const router = useRouter();
+
   return (
     <div className="text-mainDarkGray grid sm:grid-cols-4 grid-cols-2 gap-2 mt-7">
       {Object.values(CATEGORY).map((category, i) => (

@@ -1,10 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sample E-Commerce Website using Next.js
 
-## Getting Started
+This is a practice full stack website built using the Next.js framework (React).
+
+### Demo: [https://e-comm-clk.vercel.app/](https://e-comm-clk.vercel.app/)
+
+#### Functionality:
+
+- API calls for various item fetching (**axios**)
+- Persistance of CART items (**react-redux** + **react-persist** to local storage)
+- OAuth authentication with Google & Facebook (**next-auth**).
+- Search functionality and filtering (backend /api)
+
+#### Techstack: Next.js (React) with Typescript (JS) and Tailwind (CSS)
+
+## How to install
 
 First, run the development server:
 
 ```bash
+npm install next
 npm run dev
 # or
 yarn dev
@@ -32,3 +46,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+![Demo1](/public/demo/demo1.jpg)
+![Demo1](/public/demo/demo2.jpg)

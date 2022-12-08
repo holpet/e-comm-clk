@@ -10,7 +10,7 @@ export default function Loading({ fullScreen, search }) {
         className={`${
           fullScreen
             ? "flex justify-center items-center h-screen"
-            : "absolute m-0 top-[300px] sm:top-[400px] left-1/2 -translate-x-1/2 z-50"
+            : "absolute m-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
         }`}
       >
         <FontAwesomeIcon
