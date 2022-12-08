@@ -27,8 +27,10 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+#### (desktop)
+
 ![Demo1](/public/demo/demo1.jpg)
 
-### 
+#### (mobile)
 
 ![Demo1](/public/demo/demo_mobile2.jpg)
