@@ -6,7 +6,7 @@ This is a practice full stack website built using the Next.js framework (React).
 
 #### Functionality:
 
-- API calls for various item fetching (**axios**)
+- API calls to FakeStoreAPI for various item fetching (**axios**)
 - Persistance of CART items (**react-redux** + **react-persist** to local storage)
 - OAuth authentication with Google & Facebook (**next-auth**).
 - Search functionality and filtering (backend /api)
