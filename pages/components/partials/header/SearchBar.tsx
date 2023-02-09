@@ -15,8 +15,8 @@ export default function SearchBar() {
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const q = e.target.value;
-    setResults(undefined);
     setLocalQuery(q);
+    setResults(undefined);
     if (q.length > 2) {
       fetchQueriedProducts(q).then((foundProducts) => {
         if (foundProducts === undefined) setResults(null);
