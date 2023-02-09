@@ -52,9 +52,30 @@ export async function fetchProductsByCategory(category: string) {
   controller.abort();
 }
 
+function getClosestQuery(
+  newQuery: string,
+  obj: { [query: string]: IProduct[] }
+): IProduct[] {
+  let closest = "";
+  for (var key in obj) {
+    if (newQuery.includes(key)) {
+      closest = key.length > closest.length ? key : closest;
+    }
+  }
+  return closest !== "" ? obj[closest] : [];
+}
+
 /* FETCH SEARCHED/QUERIED PRODUCTS */
-export async function fetchQueriedProducts(query: string) {
-  const products = await fetchAllProducts();
+export async function fetchQueriedProducts(
+  query: string,
+  cache: { [query: string]: IProduct[] }
+) {
+  if (cache.hasOwnProperty(query)) return cache[query];
+  let products = getClosestQuery(query, cache);
+  if (products.length === 0) products = await fetchAllProducts();
+  console.log(cache);
+  console.log(products);
+
   const queriedArray = products.filter((item: IProduct) => {
     return (
       item.title.toLowerCase().includes(query.toLowerCase()) ||

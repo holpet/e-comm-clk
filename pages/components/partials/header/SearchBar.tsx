@@ -29,16 +29,22 @@ export default function SearchBar() {
   const [results, setResults] = useState<IProduct[]>(null);
   const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [resultCache, setResultCache] = useState<{
+    [query: string]: IProduct[];
+  }>({});
 
   useEffect(() => {
     let ignore = false;
     setIsLoadingResults(true);
     if (debounceQuery.length > 2) {
-      fetchQueriedProducts(debounceQuery).then((foundProducts) => {
+      fetchQueriedProducts(debounceQuery, resultCache).then((foundProducts) => {
         if (!ignore) {
           if (foundProducts === undefined) setResults(null);
           else if (foundProducts.length === 0) setResults(null);
-          else setResults(foundProducts);
+          else {
+            setResults(foundProducts);
+            setResultCache({ ...resultCache, [debounceQuery]: foundProducts });
+          }
         }
         setIsLoadingResults(false);
       });
