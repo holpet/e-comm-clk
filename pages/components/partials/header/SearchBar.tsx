@@ -2,38 +2,51 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../../../styles/Header.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchQueriedProducts } from "../../../../src/fetchers/products";
 import { getPathFromId } from "../../../../src/lib/urlUtils";
 import Link from "next/link";
 import Loading from "../ui/Loading";
 import { IProduct } from "../../../../src/lib/interfaces";
 
+// slow down data fetching of query on onChange input
+function useDebounceValue(value: string, time = 250) {
+  const [debounceValue, setDebounceValue] = useState<string>(value);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebounceValue(value);
+    }, time);
+    return () => clearTimeout(timeout);
+  }, [value, time]);
+
+  return debounceValue;
+}
+
 export default function SearchBar() {
   const [localQuery, setLocalQuery] = useState<string>("");
-  const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false);
+  const debounceQuery = useDebounceValue(localQuery);
   const [results, setResults] = useState<IProduct[]>(null);
+  const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const q = e.target.value;
-    setLocalQuery(q);
-    setResults(null);
-    setIsLoadingResults(true); // shows loading in the meantime
-    if (q.length > 2) {
-      fetchQueriedProducts(q).then((foundProducts) => {
-        if (foundProducts === undefined) setResults(null);
-        else if (foundProducts.length === 0) setResults(null);
-        else setResults(foundProducts);
+  useEffect(() => {
+    let ignore = false;
+    setIsLoadingResults(true);
+    if (debounceQuery.length > 2) {
+      fetchQueriedProducts(debounceQuery).then((foundProducts) => {
+        if (!ignore) {
+          if (foundProducts === undefined) setResults(null);
+          else if (foundProducts.length === 0) setResults(null);
+          else setResults(foundProducts);
+        }
         setIsLoadingResults(false);
       });
     }
-  }
-
-  function handleOnClick() {
-    setResults(null);
-    setLocalQuery("");
-  }
+    return () => {
+      ignore = true;
+    };
+  }, [debounceQuery]);
 
   return (
     <div
@@ -51,12 +64,15 @@ export default function SearchBar() {
             type="text"
             placeholder="What are you looking for?"
             value={localQuery}
-            onChange={handleOnChange}
+            onChange={(e) => {
+              setLocalQuery(e.target.value);
+            }}
             onBlur={() => setIsFocused(false)}
             onFocus={() => setIsFocused(true)}
           />
         </div>
       </div>
+      {/* ----------------- DROPDOWN CONTENT ----------------- */}
       <div
         className={`${
           styles.dropdownContentSearch
@@ -66,14 +82,18 @@ export default function SearchBar() {
       >
         {/* >>>>> DROPDOWN MATCHES <<<<< */}
         {isLoadingResults && <Loading fullScreen={false} search={true} />}
-        {results === null && !isLoadingResults && <div>No matches found.</div>}
-        {results !== null &&
+        {!isLoadingResults && results === null && <div>No matches found.</div>}
+        {!isLoadingResults &&
+          results !== null &&
           results.map((product: IProduct) => (
             <Link
               key={product.id}
               className={"mainLink block"}
               href={getPathFromId(product.category, product.title, product.id)}
-              onClick={handleOnClick}
+              onClick={() => {
+                setResults(null);
+                setLocalQuery("");
+              }}
             >
               {product.title}
             </Link>

@@ -8,6 +8,8 @@ import {
   generateRandomNumberArray,
 } from "./lib/fetchUtils";
 import productClient, { searchClient } from "./axiosConfig";
+import tags from "../lib/itemTagsCollection";
+import { IProduct } from "../lib/interfaces";
 
 /* FETCH ONE PRODUCT */
 export async function fetchOneProductById(id: string) {
@@ -52,17 +54,16 @@ export async function fetchProductsByCategory(category: string) {
 
 /* FETCH SEARCHED/QUERIED PRODUCTS */
 export async function fetchQueriedProducts(query: string) {
-  const controller = new AbortController();
-  try {
-    let { data } = await searchClient.get(`search?q=${query}`, {
-      signal: controller.signal,
-    });
+  const products = await fetchAllProducts();
+  const queriedArray = products.filter((item: IProduct) => {
+    return (
+      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.description.toLowerCase().includes(query.toLowerCase()) ||
+      item.category.toLowerCase().includes(query.toLowerCase())
+    );
+  });
 
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-  controller.abort();
+  return queriedArray;
 }
 
 /* FETCH RANDOM PRODUCTS (SPECIALS) */
