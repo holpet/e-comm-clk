@@ -73,8 +73,6 @@ export async function fetchQueriedProducts(
   if (cache.hasOwnProperty(query)) return cache[query];
   let products = getClosestQuery(query, cache);
   if (products.length === 0) products = await fetchAllProducts();
-  console.log(cache);
-  console.log(products);
 
   const queriedArray = products.filter((item: IProduct) => {
     return (
