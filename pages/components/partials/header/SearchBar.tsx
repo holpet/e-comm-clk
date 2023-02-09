@@ -7,21 +7,25 @@ import { fetchQueriedProducts } from "../../../../src/fetchers/products";
 import { getPathFromId } from "../../../../src/lib/urlUtils";
 import Link from "next/link";
 import Loading from "../ui/Loading";
+import { IProduct } from "../../../../src/lib/interfaces";
 
 export default function SearchBar() {
-  const [localQuery, setLocalQuery] = useState("");
-  const [results, setResults] = useState(null);
-  const [isFocused, setIsFocused] = useState(false);
+  const [localQuery, setLocalQuery] = useState<string>("");
+  const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false);
+  const [results, setResults] = useState<IProduct[]>(null);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const q = e.target.value;
     setLocalQuery(q);
-    setResults(undefined);
+    setResults(null);
+    setIsLoadingResults(true); // shows loading in the meantime
     if (q.length > 2) {
       fetchQueriedProducts(q).then((foundProducts) => {
         if (foundProducts === undefined) setResults(null);
         else if (foundProducts.length === 0) setResults(null);
         else setResults(foundProducts);
+        setIsLoadingResults(false);
       });
     }
   }
@@ -61,11 +65,10 @@ export default function SearchBar() {
         }`}
       >
         {/* >>>>> DROPDOWN MATCHES <<<<< */}
-        {results === undefined && <Loading fullScreen={false} search={true} />}
-        {results === null && <div>No matches found.</div>}
+        {isLoadingResults && <Loading fullScreen={false} search={true} />}
+        {results === null && !isLoadingResults && <div>No matches found.</div>}
         {results !== null &&
-          results !== undefined &&
-          results.map((product) => (
+          results.map((product: IProduct) => (
             <Link
               key={product.id}
               className={"mainLink block"}
