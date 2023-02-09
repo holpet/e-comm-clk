@@ -1,58 +1,19 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import styles from "../../../../styles/Header.module.css";
-import { useEffect, useState } from "react";
-import { fetchQueriedProducts } from "../../../../src/fetchers/products";
-import { getPathFromId } from "../../../../src/lib/urlUtils";
+import styles from "../../../../../styles/Header.module.css";
+import { useState } from "react";
+import { getPathFromId } from "../../../../../src/lib/urlUtils";
 import Link from "next/link";
-import Loading from "../ui/Loading";
-import { IProduct } from "../../../../src/lib/interfaces";
-
-// slow down data fetching of query on onChange input
-function useDebounceValue(value: string, time = 250) {
-  const [debounceValue, setDebounceValue] = useState<string>(value);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDebounceValue(value);
-    }, time);
-    return () => clearTimeout(timeout);
-  }, [value, time]);
-
-  return debounceValue;
-}
+import Loading from "../../ui/Loading";
+import { IProduct } from "../../../../../src/lib/interfaces";
+import SearchInput from "./SearchInput";
 
 export default function SearchBar() {
   const [localQuery, setLocalQuery] = useState<string>("");
-  const debounceQuery = useDebounceValue(localQuery);
   const [results, setResults] = useState<IProduct[]>(null);
   const [isLoadingResults, setIsLoadingResults] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [resultCache, setResultCache] = useState<{
-    [query: string]: IProduct[];
-  }>({});
-
-  useEffect(() => {
-    let ignore = false;
-    setIsLoadingResults(true);
-    if (debounceQuery.length > 2) {
-      fetchQueriedProducts(debounceQuery, resultCache).then((foundProducts) => {
-        if (!ignore) {
-          if (foundProducts === undefined) setResults(null);
-          else if (foundProducts.length === 0) setResults(null);
-          else {
-            setResults(foundProducts);
-            setResultCache({ ...resultCache, [debounceQuery]: foundProducts });
-          }
-        }
-        setIsLoadingResults(false);
-      });
-    }
-    return () => {
-      ignore = true;
-    };
-  }, [debounceQuery]);
 
   return (
     <div
@@ -65,16 +26,12 @@ export default function SearchBar() {
           size="lg"
         />
         <div className="flex flex-col w-full">
-          <input
-            className={`${styles.searchbarInput} outline-none w-full p-2 text-mainBlackGray focus:bg-mainWhiteGray`}
-            type="text"
-            placeholder="What are you looking for?"
-            value={localQuery}
-            onChange={(e) => {
-              setLocalQuery(e.target.value);
-            }}
-            onBlur={() => setIsFocused(false)}
-            onFocus={() => setIsFocused(true)}
+          <SearchInput
+            queryVal={localQuery}
+            handleQuery={setLocalQuery}
+            handleResults={setResults}
+            handleFocus={setIsFocused}
+            handleLoading={setIsLoadingResults}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 // components
 import Signin from "./partials/header/Signin";
-import SearchBar from "./partials/header/SearchBar";
+import SearchBar from "./partials/header/searchBar/SearchBar";
 import Logo from "./partials/header/Logo";
 import Cart from "./partials/header/Cart";
 import Categories from "./partials/header/Categories";
