@@ -7,9 +7,9 @@ import {
   capToLimit,
   generateRandomNumberArray,
 } from "./lib/fetchUtils";
-import productClient, { searchClient } from "./axiosConfig";
-import tags from "../lib/itemTagsCollection";
+import productClient from "./axiosConfig";
 import { IProduct } from "../lib/interfaces";
+import { getClosestQuery } from "../lib/searchUtils";
 
 /* FETCH ONE PRODUCT */
 export async function fetchOneProductById(id: string) {
@@ -50,19 +50,6 @@ export async function fetchProductsByCategory(category: string) {
     console.log(error);
   }
   controller.abort();
-}
-
-function getClosestQuery(
-  newQuery: string,
-  obj: { [query: string]: IProduct[] }
-): IProduct[] {
-  let closest = "";
-  for (var key in obj) {
-    if (newQuery.includes(key)) {
-      closest = key.length > closest.length ? key : closest;
-    }
-  }
-  return closest !== "" ? obj[closest] : [];
 }
 
 /* FETCH SEARCHED/QUERIED PRODUCTS */
